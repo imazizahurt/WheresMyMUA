@@ -1,4 +1,177 @@
-﻿using System; using System.Collections.Generic; using System.Text; using MySql.Data.MySqlClient; using WheresMyMUA.Models;  namespace WheresMyMUA {     class ArtistsRepository     {         private const string connStr = "Server=localhost;Database=mua;Uid=root;Pwd=password";           public void DeleteArtists(int artistsId)         {             MySqlConnection conn = new MySqlConnection(connStr);             MySqlCommand cmd = conn.CreateCommand();              cmd.CommandText =                 "DELETE FROM artists " +                 $"WHERE artistID={ artistsId};";              using (cmd.Connection)             {                 cmd.Connection.Open();                 cmd.ExecuteNonQuery();             }         }          public void UpdateArtists(int artistId, string newName)         {             MySqlConnection conn = new MySqlConnection(connStr);             MySqlCommand cmd = conn.CreateCommand();              cmd.CommandText =                 "UPDATE artists " +                 "SET Name=@name " +                 $"WHERE ArtistsID={ artistId};";             cmd.Parameters.AddWithValue("name", newName);              using (cmd.Connection)             {                 cmd.Connection.Open();                 cmd.ExecuteNonQuery();             }         }          public List<Artist> GetAllArtists()         {             MySqlConnection conn = new MySqlConnection(connStr);             MySqlCommand cmd = conn.CreateCommand();              cmd.CommandText =                 "SELECT ID, Name, Specialty, Location, Phone " +                 "FROM artists;";              List<Artist> artists = new List<Artist>();             using (cmd.Connection)             {                 cmd.Connection.Open();                  MySqlDataReader dataReader = cmd.ExecuteReader();                  while (dataReader.Read() == true)                 {                     Artist artist = new Artist();                      artist.ID = dataReader.GetInt32("ID");                     artist.Name = dataReader.GetString("Name");                     artist.Specialty = dataReader.GetString("Specialty");                     artist.Location = dataReader.GetString("Location");                     artist.Phone = dataReader.GetInt32("Phone"); 
+﻿using System.Collections.Generic;
+using WheresMyMUA.Models;
+using MySql.Data.MySqlClient;
+using System.IO;
 
+namespace WheresMyMUA
+{
+    public class ArtistsRepository
+    {
+        //public static string ConnectionString { get; set; }
 
-                    artists.Add(artist);                 }             }              return artists;         }     } } 
+        private static string ConnectionString = "Server=localhost;Database=mua;Uid=root;Pwd=password";
+
+        public List<Artist> GetAllArtists()
+        {
+            MySqlConnection conn = new MySqlConnection(ConnectionString);
+
+            List<Artist> artists = new List<Artist>();
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT ID, Name, Specialty, Location, Phone FROM artists;";
+
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    Artist artist = new Artist()
+                    {
+                        ID = (int)dataReader["ID"],
+                        Name = dataReader["Name"].ToString(),
+                        Specialty = dataReader["Specialty"].ToString(),
+                        Location = dataReader["Location"].ToString(),
+                        Phone = (int)dataReader["Phone"]
+                    };
+
+                    artists.Add(artist);
+                }
+
+                return artists;
+            }
+        }
+
+        public int InsertArtist(string name, string specialty, string location, int phone)
+        {
+            MySqlConnection conn = new MySqlConnection(ConnectionString);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+
+                cmd.CommandText = "INSERT INTO Artists (Name, Specialty, Location, Phone) " +
+                                  "VALUES (@name, @specialty, @location, @phone);";
+                                                                  //removed category id
+                cmd.Parameters.AddWithValue("name", name);
+                cmd.Parameters.AddWithValue("specialty", specialty);
+                cmd.Parameters.AddWithValue("location", location);
+                cmd.Parameters.AddWithValue("phone", phone);
+
+                //  STOPPED HERE....START FROM HERE
+
+                return cmd.ExecuteNonQuery();
+            }
+        }
+
+        /*public int UpdateProduct(Product product)
+        {
+            MySqlConnection conn = new MySqlConnection(ConnectionString);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+
+                cmd.CommandText = "UPDATE Products SET Name = @name, Price = @price " +
+                                  "WHERE ProductID = @pid";
+                cmd.Parameters.AddWithValue("name", product.Name);
+                cmd.Parameters.AddWithValue("price", product.Price);
+                cmd.Parameters.AddWithValue("pid", product.Id);
+
+                return cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteProduct(int id)
+        {
+            MySqlConnection conn = new MySqlConnection(ConnectionString);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM Products " +
+                                                    "WHERE ProductID=" + id, conn);
+                cmd.ExecuteNonQuery();
+            }
+        }*/
+
+        public List<Artist> GetArtistsByName(string Name)
+        {
+            MySqlConnection conn = new MySqlConnection(ConnectionString);
+
+            List<Artist> artist = new List<Artist>();
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT ID, Name, Specialty, Location, Phone " +
+                                  "FROM artists " +
+                                  "WHERE Name = @xyz " +
+                                  "ORDER BY ID";
+                cmd.Parameters.AddWithValue("xyz", Name);
+
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    Artist artists = new Artist()
+                    {
+                        ID = (int)dataReader["ID"],
+                        Name = dataReader["Name"].ToString(),
+                        Specialty = dataReader["Specialty"].ToString(),
+                        Location = dataReader["Location"].ToString(),
+                        Phone = (int)dataReader["Phone"]
+                    };
+
+                    artist.Add(artists);
+                }
+
+                return artist;
+            }
+        }
+
+        public Artist GetArtist(int id)
+        {
+            MySqlConnection conn = new MySqlConnection(ConnectionString);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT ID, Name, Specialty, Location, Phone " +
+                                  "FROM artists " +
+                                  "WHERE ID=" + id;
+
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                if (dataReader.Read())
+                {
+                    Artist artist = new Artist()
+                    {
+                        ID = (int)dataReader["ID"],
+                        Name = dataReader["Name"].ToString(),
+                        Specialty = dataReader["Specialty"].ToString(),
+                        Location = dataReader["Location"].ToString(),
+                        Phone = (int)dataReader["Phone"]
+                    };
+
+                    return artist;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+    }
+}

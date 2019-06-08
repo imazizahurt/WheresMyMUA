@@ -3,17 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WheresMyMUA.Models;
+using WheresMyMUA.ViewModels;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 
 namespace WheresMyMUA.Controllers
 {
     public class ArtistsController : Controller
     {
-        // GET: /<controller>/
         public IActionResult Index()
         {
+            ArtistsRepository repo = new ArtistsRepository();
+
+            ArtistsViewModels viewModel = new ArtistsViewModels();
+            viewModel.Artists = repo.GetAllArtists();
+
+            return View(viewModel);
+        }
+
+        public IActionResult NewArtist()
+        {
             return View();
+        }
+
+        public IActionResult Add(string name, string specialty, string location, int phone)
+        {
+            ArtistsRepository repo = new ArtistsRepository();
+            repo.InsertArtist(name, specialty, location, phone);
+
+            return RedirectToAction("ArtistSignUp", "Artist");
         }
     }
 }
