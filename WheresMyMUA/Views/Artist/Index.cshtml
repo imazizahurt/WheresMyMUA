@@ -1,0 +1,30 @@
+﻿@model WheresMyMUA.ViewModels.ArtistsViewModels
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Artist</h2>
+
+<a asp-area="" asp-controller="Artist" asp-action="NewArtist">Add Artist</a>
+
+<table class="table table-bordered table-hover">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <th>Specialty</th>
+            <th>Location</th>
+            <th>Phone</th>
+        </tr>
+        @foreach (Artist artist in Model.Artists)
+        {
+            <tr>
+                <td>@artist.Name</td>
+                <td>@artist.Specialty</td>
+                <td>@artist.Location</td>
+                <td>@artist.Phone</td>
+
+            </tr>
+        }
+    </tbody>
+</table>

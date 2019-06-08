@@ -1,0 +1,28 @@
+﻿@model Artist
+@{
+    ViewData["Title"] = "NewArtist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Artist:</h2>
+
+@using (Html.BeginForm("Add", "Artist", "Post"))
+{
+    <label asp-for="Name" class="control-label">Name:</label>
+    <br />
+    <input type="text" name="Name" class="form-control" value="" />
+    <br />
+    <label asp-for="Specialty" class="control-label">Specialty:</label>
+    <br />
+    <input type="text" name="Specialty" class="form-control" value="" />
+    <br />
+    <label asp-for="Location" class="control-label">Location:</label>
+    <br />
+    <input type="text" name="Location" class="form-control" value="" />
+    <br />
+    <label asp-for="Phone" class="control-label">Phone:</label>
+    <br />
+    <input type="number" name="Phone" class="form-control" value="" />
+    <br />
+    <input type="submit" name="Submit" value="Add Artist" class="btn btn-default" />
+}
