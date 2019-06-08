@@ -14,9 +14,11 @@ namespace WheresMyMUA.Controllers
     {
         public IActionResult Index()
         {
+            var viewModel = new ViewModels.ArtistsViewModels();
+
             ArtistsRepository repo = new ArtistsRepository();
 
-            ArtistsViewModels viewModel = new ArtistsViewModels();
+            //ArtistsViewModels viewModel = new ArtistsViewModels();
             viewModel.Artists = repo.GetAllArtists();
 
             return View(viewModel);
