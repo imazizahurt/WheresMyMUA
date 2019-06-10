@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\" />
-    <Folder Include="Views\Artist\" />
+    <Folder Include="Views\Artists\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="ViewModels\ArtistViewModels.cshtml" />
