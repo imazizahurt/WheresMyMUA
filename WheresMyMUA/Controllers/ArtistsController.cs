@@ -34,7 +34,12 @@ namespace WheresMyMUA.Controllers
             ArtistsRepository repo = new ArtistsRepository();
             repo.InsertArtist(name, specialty, location, phone);
 
-            return RedirectToAction("ArtistSignUp", "Artist");
+            return RedirectToAction("Index"); //misspelled Artists
         }
+
+      //  ArtistsRepository demo = new ArtistsRepository();
+        
+        
     }
 }
+
