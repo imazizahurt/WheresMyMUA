@@ -22,6 +22,7 @@ namespace WheresMyMUA.Controllers
             viewModel.Artists = repo.GetAllArtists();//now we give artists a value
 
             return View(viewModel);
+            //test
         }
 
         public IActionResult NewArtist()
