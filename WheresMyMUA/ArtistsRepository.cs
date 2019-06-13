@@ -24,7 +24,7 @@ namespace WheresMyMUA
                 MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT ID, Name, Specialty, Location, Phone FROM artists;";
 
-                MySqlDataReader dataReader = cmd.ExecuteReader();
+                MySqlDataReader dataReader = cmd.ExecuteReader();   
 
                 while (dataReader.Read())
                 {

@@ -14,10 +14,15 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\" />
-    <Folder Include="Views\Artist\" />
+    <Folder Include="Views\Artists\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="ViewModels\ArtistViewModels.cshtml" />
     <Content Remove="wwwroot\images\MUA_work\graphics\blue_blush.png" />
+    <Content Remove="Views\Shared\Test.cshtml" />
+    <Content Remove="Views\_Test.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Views\DemoAdd.cs" />
   </ItemGroup>
 </Project>

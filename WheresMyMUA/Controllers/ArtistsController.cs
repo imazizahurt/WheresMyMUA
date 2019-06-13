@@ -14,12 +14,15 @@ namespace WheresMyMUA.Controllers
     {
         public IActionResult Index()
         {
+           
             ArtistsRepository repo = new ArtistsRepository();
 
             ArtistsViewModels viewModel = new ArtistsViewModels();
-            viewModel.Artists = repo.GetAllArtists();
+
+            viewModel.Artists = repo.GetAllArtists();//now we give artists a value
 
             return View(viewModel);
+            //test
         }
 
         public IActionResult NewArtist()
@@ -32,7 +35,8 @@ namespace WheresMyMUA.Controllers
             ArtistsRepository repo = new ArtistsRepository();
             repo.InsertArtist(name, specialty, location, phone);
 
-            return RedirectToAction("ArtistSignUp", "Artist");
+            return RedirectToAction("Index"); //misspelled Artists
         }
     }
 }
+

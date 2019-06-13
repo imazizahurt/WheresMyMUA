@@ -1,4 +1,4 @@
-﻿<form action="/action_page.php">
+﻿<form asp-action="Add" asp-controller="Artists">  <!--modified this line-->
     <fieldset>
         <legend>SIGN UP NOW:</legend>
         Name:<br>
@@ -8,7 +8,8 @@
         Location:<br>
         <input type="text" name="Location" value=""><br>
         Phone:<br>
-        <input type="text" name="Phone" pvalue=""><br>
+        <input type="number" name="Phone" value=""><br>
         <input type="submit" value="Submit">
     </fieldset>
 </form>
+
