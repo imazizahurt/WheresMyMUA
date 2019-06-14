@@ -1,6 +1,22 @@
-﻿<form asp-action="Add" asp-controller="Artists">  <!--modified this line-->
+﻿
+
+
+<style>
+    body {
+        background-image: url("/images/mua_work/graphics/spilled_makeup.jpg");
+        background-size: 100%;
+        background-position:0% 30%;
+    }
+
+  </style>
+
+
+<body> 
+<form style="text-align:center; font-family:LittlePea-Demo-Regular" asp-action="Add" asp-controller="Artists">  <!--modified this line-->
     <fieldset>
-        <legend>SIGN UP NOW:</legend>
+        <legend style="        font-family: Pintgram-Italic;
+        font-size: xx-large;
+        color: black">Sign Up Now:</legend>
         Name:<br>
         <input type="text" name="Name" value=""><br>
         Specialty:<br>
@@ -12,4 +28,6 @@
         <input type="submit" value="Submit">
     </fieldset>
 </form>
+
+</body>
 

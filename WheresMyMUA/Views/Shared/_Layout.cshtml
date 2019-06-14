@@ -28,17 +28,18 @@
         <a asp-controller="Home" asp-action="ArtistSignUp">Sign Up</a>
     </div>
 
-    <span style="font-family:Arial, Helvetica, sans-serif; font-size:25px;cursor:pointer" onclick="openNav()">&#9776;open</span>
+    <span style="background-color:whitesmoke; color:black; font-family:LittlePea-Demo-Regular; font-size:30px;cursor:pointer" onclick="openNav()">&#9776;open</span>
 
 
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        @*@<div style="position:absolute; bottom:0; width:100%">*@  
         <footer>
-            <p style="font-family: typewriter">&copy; 2019 - F.A.M.M. association</p>
+            <p style="font-family: LittlePea-Demo-Regular">&copy; 2019 - F.A.M.M. association</p>
         </footer>
+        
     </div>
 
     <environment include="Development">

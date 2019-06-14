@@ -42,7 +42,7 @@ namespace WheresMyMUA.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Keep in Touch!";
+            ViewData["Message"] = "Do you have an idea of how we can improve functionality?\nOr perhaps you are a savvy entrepreneur interested in investing?\n";
 
             return View();
         }
